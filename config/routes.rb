@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :items do
-  	patch '/' => 'items#toggleStatus'
+  	get 'toggle' => 'items#toggleStatus'
   end
 
   root 'items#index'

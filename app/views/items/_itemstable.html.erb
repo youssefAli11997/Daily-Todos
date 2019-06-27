@@ -19,7 +19,7 @@
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Toggle', item_path(item), method: :patch %>
+        <td><%= link_to 'Toggle', item_toggle_path(item) %>
       </tr>
     <% end %>
   </tbody>
