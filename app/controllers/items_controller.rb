@@ -116,6 +116,16 @@ class ItemsController < ApplicationController
     redirect_to '/'
   end
 
+  def todoToday
+    @item = Item.find(params[:item_id])
+    toggled_item = {:done => @item.done,
+                    :associated_date => DateTime.now, 
+                    :summary => @item.summary,
+                    :description => @item.description}
+    @item.update(toggled_item)
+    redirect_to '/'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

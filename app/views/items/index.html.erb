@@ -11,7 +11,7 @@
 
 <h1>To-Do Items</h1>
 
-<%= render 'itemstable', :items => @todo_items %>
+<%= render 'itemstable', :items => @todo_items, :passed_date => $date.strftime("%Y/%m/%d") %>
 
 <h1>Done Items</h1>
 

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :items do
   	get 'toggle' => 'items#toggleStatus'
+  	get 'todo_today' => 'items#todoToday'
   end
 
   root 'items#index'
