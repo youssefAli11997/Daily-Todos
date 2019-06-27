@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
     @all_items.each do |item|
       item_date = item.associated_date
       next if item_date == nil
-      next if item_date.strftime("%d/%m/%Y") != @date
+      next if item_date.strftime("%Y/%m/%d") != @date
       if item.done
         @done_items.push item
       else
