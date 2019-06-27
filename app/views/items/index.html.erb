@@ -1,0 +1,18 @@
+<h1> <%= @date %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<h1>To-Do Items</h1>
+
+<%= render 'itemstable', :items => @todo_items %>
+
+<h1>Done Items</h1>
+
+<%= render 'itemstable', :items => @done_items %>
+
+<br>
+
+<!--<%= link_to 'New Item', new_item_path %>-->
+
+<h1>Add Item</h1>
+<%= render 'form', :item => Item.new %>

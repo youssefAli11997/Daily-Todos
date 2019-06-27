@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Done:</strong>
+  <%= @item.done %>
+</p>
+
+<p>
+  <strong>Associated date:</strong>
+  <%= @item.associated_date %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @item.summary %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @item.description %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
