@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         format.html { redirect_to '/', notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
+        format.json { render :show, status: :created, location: '/' }
       else
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -57,8 +57,8 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @item }
+        format.html { redirect_to '/', notice: 'Item was successfully updated.' }
+        format.json { render :show, status: :ok, location: '/' }
       else
         format.html { render :edit }
         format.json { render json: @item.errors, status: :unprocessable_entity }
@@ -98,6 +98,21 @@ class ItemsController < ApplicationController
 
   def setToday
     $date = DateTime.now
+    redirect_to '/'
+  end
+
+  def goto
+    puts "#{params['selected_date(1i)']}/" + 
+        "#{params['selected_date(2i)']}/#{params['selected_date(3i)']}"
+    old_date = $date
+    begin
+      $date = DateTime.parse("#{params['selected_date(1i)']}/" + 
+        "#{params['selected_date(2i)']}/#{params['selected_date(3i)']}")
+    rescue
+      $date = old_date
+      puts $date
+    end
+
     redirect_to '/'
   end
 

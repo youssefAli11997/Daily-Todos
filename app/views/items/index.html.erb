@@ -2,7 +2,10 @@
 <%= link_to "Prev", 'prev_day' %>
 <%= link_to "Next", 'next_day' %>
 <%= link_to "Today", 'today' %>
-<!-- go to -->
+<%= form_with method: :post, url: {action: 'goto'} do |form| %>
+  <%= form.date_select "selected_date", start_year: 1970, use_month_numbers: true %>
+  <%= form.submit "Go to" %>
+<% end %>
 
 <p id="notice"><%= notice %></p>
 

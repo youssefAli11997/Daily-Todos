@@ -15,7 +15,7 @@
         <!--<td><%= item.done %></td>-->
         <!--<td><%= item.associated_date %></td>-->
         <td><%= item.summary %></td>
-        <td><%= item.description[0..30] %>...</td>
+        <td><%= item.description[0..30] %> <%= '...' if item.description.size > 31 %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
