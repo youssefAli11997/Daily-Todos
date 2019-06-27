@@ -1,9 +1,8 @@
-<% enableTodoToday = !((defined?(passed_date)).nil?) && (passed_date != DateTime.now.strftime("%Y/%m/%d")) %>
 <table>
   <thead>
     <tr>
       <!--<th>Done</th>-->
-      <!--<th>Associated date</th>-->
+      <th>Associated date</th>
       <th>Summary</th>
       <th>Description</th>
       <th colspan="5"></th>
@@ -12,19 +11,23 @@
 
   <tbody>
     <% items.each do |item| %>
+    <% if item.done == done %>
       <tr>
         <!--<td><%= item.done %></td>-->
-        <!--<td><%= item.associated_date %></td>-->
+        <td><%= item_date =(item.associated_date || DateTime.now).strftime("%Y/%m/%d") %></td>
         <td><%= item.summary[0..30] %> <%= '...' if item.summary.size > 31 %></td>
         <td><%= item.description[0..30] %> <%= '...' if item.description.size > 31 %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Toggle', item_toggle_path(item) %></td>
-        <% if enableTodoToday %>
+        <% if done == false && item_date != DateTime.now.strftime("%Y/%m/%d") %>
         <td><%= link_to 'Todo today!', item_todo_today_path(item) %></td>
+        <% end %>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= link_to "Back", root_path %>

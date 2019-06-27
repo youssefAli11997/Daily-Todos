@@ -6,6 +6,8 @@
   <%= form.date_select "selected_date", start_year: 1970, use_month_numbers: true %>
   <%= form.submit "Go to" %>
 <% end %>
+<%= link_to "Show all undone", show_all_todo_path %>
+<%= link_to "Show all done", showAllDone_path %>
 
 <p id="notice"><%= notice %></p>
 
