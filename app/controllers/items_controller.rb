@@ -1,10 +1,11 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
+  before_action :set_date, only: [:index]
+
   # GET /items
   # GET /items.json
-  def index
-    @date = DateTime.now.strftime("%Y/%m/%d")
+  def index  
     @all_items = Item.all
     @todo_items = []
     @done_items = []
@@ -12,7 +13,7 @@ class ItemsController < ApplicationController
     @all_items.each do |item|
       item_date = item.associated_date
       next if item_date == nil
-      next if item_date.strftime("%Y/%m/%d") != @date
+      next if item_date.strftime("%Y/%m/%d") != $date.strftime("%Y/%m/%d")
       if item.done
         @done_items.push item
       else
@@ -38,8 +39,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @date = DateTime.now
-    @item = Item.new(item_params.to_h.update({:associated_date => @date}))
+    @item = Item.new(item_params.to_h.update({:associated_date => $date}))
 
     respond_to do |format|
       if @item.save
@@ -86,6 +86,21 @@ class ItemsController < ApplicationController
     redirect_to '/'
   end
 
+  def setPrevDay
+    $date = $date.prev_day
+    redirect_to '/'
+  end
+
+  def setNextDay
+    $date = $date.next_day
+    redirect_to '/'
+  end
+
+  def setToday
+    $date = DateTime.now
+    redirect_to '/'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
@@ -95,5 +110,11 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:done, :associated_date, :summary, :description)
+    end
+
+    def set_date
+      unless $date
+        $date = DateTime.now
+      end
     end
 end

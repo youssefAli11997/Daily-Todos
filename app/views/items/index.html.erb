@@ -1,4 +1,8 @@
-<h1> <%= @date %></h1>
+<h1> <%= $date.strftime("%Y/%m/%d") %></h1>
+<%= link_to "Prev", 'prev_day' %>
+<%= link_to "Next", 'next_day' %>
+<%= link_to "Today", 'today' %>
+<!-- go to -->
 
 <p id="notice"><%= notice %></p>
 
