@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
   before_action :set_date, only: [:index]
 
   # GET /items
   # GET /items.json
   def index  
+    session[:mainReturn] = '/'
     @all_items = Item.all
     @todo_items = []
     @done_items = []
@@ -57,7 +57,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to '/', notice: 'Item was successfully updated.' }
+        format.html { redirect_to session[:mainReturn], notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: '/' }
       else
         format.html { render :edit }
@@ -71,7 +71,7 @@ class ItemsController < ApplicationController
   def destroy
     @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to session[:mainReturn], notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -83,7 +83,7 @@ class ItemsController < ApplicationController
                     :summary => @item.summary,
                     :description => @item.description}
     @item.update(toggled_item)
-    redirect_to '/'
+    redirect_to session[:mainReturn]
   end
 
   def setPrevDay
@@ -102,35 +102,34 @@ class ItemsController < ApplicationController
   end
 
   def goto
-    puts "#{params['selected_date(1i)']}/" + 
-        "#{params['selected_date(2i)']}/#{params['selected_date(3i)']}"
     old_date = $date
     begin
       $date = DateTime.parse("#{params['selected_date(1i)']}/" + 
         "#{params['selected_date(2i)']}/#{params['selected_date(3i)']}")
     rescue
       $date = old_date
-      puts $date
     end
 
-    redirect_to '/'
+    redirect_to session[:mainReturn]
   end
 
   def todoToday
     @item = Item.find(params[:item_id])
     toggled_item = {:done => @item.done,
-                    :associated_date => DateTime.now, 
+                    :associated_date => DateTime.now.strftime("%Y/%m/%d"), 
                     :summary => @item.summary,
                     :description => @item.description}
     @item.update(toggled_item)
-    redirect_to '/'
+    redirect_to session[:mainReturn]
   end
 
   def showAllTodo
+    session[:mainReturn] = '/show_all_todo'
     @items = Item.all
   end
 
   def showAllDone
+    session[:mainReturn] = '/show_all_done'
     @items = Item.all
   end
 

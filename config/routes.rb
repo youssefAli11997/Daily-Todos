@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'next_day' => 'items#setNextDay'
   get 'today' => 'items#setToday'
   get 'show_all_todo' => 'items#showAllTodo'
-  get 'showAllDone' => 'items#showAllDone'
+  get 'show_all_done' => 'items#showAllDone'
 
   post 'goto' => 'items#goto'
 
